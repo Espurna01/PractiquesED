@@ -46,17 +46,35 @@ public class DLL<T> implements TADLlista<T> {
 
     @Override
     public void inserir(int posició, T data) throws operacioImposible {
+        DLL<T> poi = this;
+        for(int i = 0; i < posició;i++){
+            poi = poi.fwd;
+        }
 
     }
 
     @Override
     public T obtenir(int posició) throws operacioImposible {
-        return null;
+        DLL<T> poi = this;
+        for(int i = 0; i < posició;i++){
+            poi = poi.fwd;
+        }
+        return poi.data;
     }
 
     @Override
     public int longitud() {
-        return 0;
+        if(data == null){
+            return 0;
+        } else{
+            DLL<T> poi = this;
+            int i = 0;
+            for(;fwd != null;i++){
+                i++;
+                poi = poi.fwd;
+            }
+            return i+1;
+        }
     }
 
     @Override
