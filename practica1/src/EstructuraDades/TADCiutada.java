@@ -1,6 +1,6 @@
 package EstructuraDades;
 
-import org.jetbrains.annotations.NotNull;
+
 
 public abstract class TADCiutada implements Comparable<TADCiutada> {
     protected String nom;
@@ -18,7 +18,7 @@ public abstract class TADCiutada implements Comparable<TADCiutada> {
     }
 
     @Override
-    public int compareTo(@NotNull TADCiutada o) {
+    public int compareTo(TADCiutada o) {
         return dni.compareTo(o.getDni());
     }
 

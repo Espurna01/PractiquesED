@@ -4,10 +4,8 @@ import EstructuraDades.CiutadaPeu;
 import EstructuraDades.DLL;
 import EstructuraDades.TADCiutada;
 import Excepcions.elementNoExisteix;
-import Excepcions.operacioImposible;
+import Excepcions.operacioImpossible;
 import org.junit.jupiter.api.Test;
-
-import javax.sound.midi.Soundbank;
 
 import static org.junit.jupiter.api.Assertions.*;
 class DLLTest {
@@ -56,7 +54,7 @@ class DLLTest {
     /**
      * Es comprovara si es poden afegir elements a posicions critiques de la llista.
      * La primera i una del mig(4), per afegir elements al final de la llista s'ha
-     * d'utilitzar el metode DLL.inserir(T). I, que llençi l'excepció operacioImposible
+     * d'utilitzar el metode DLL.inserir(T). I, que llençi l'excepció operacioImpossible
      * quan la poscició introduida estigui fora del rang ([1, longitud()]).
      */
     @Test
@@ -66,10 +64,10 @@ class DLLTest {
         CiutadaPeu cp2 = new CiutadaPeu("2","2", "2");
         CiutadaPeu cp3 = new CiutadaPeu("3","3", "3");
 
-        assertDoesNotThrow(() -> dllc.inserir(1, cp1), "El métode inserir(int, T) ha llençat l'excepció operacioImposible"); /* Inserim a la primera posicio de la llista [1, a, b, c, ..., f ] */
-        assertDoesNotThrow(() -> dllc.inserir(4, cp2), "El métode inserir(int, T) ha llençat l'excepció operacioImposible");
-        assertThrows(operacioImposible.class, () -> dllc.inserir(-1, cp3), "El métode inserir(int, T) NO ha llençat l'excepcio");
-        assertThrows(operacioImposible.class, () -> dllc.inserir(100, cp3), "El métode inserir(int, T) NO ha llençat l'excepcio");
+        assertDoesNotThrow(() -> dllc.inserir(1, cp1), "El métode inserir(int, T) ha llençat l'excepció operacioImpossible"); /* Inserim a la primera posicio de la llista [1, a, b, c, ..., f ] */
+        assertDoesNotThrow(() -> dllc.inserir(4, cp2), "El métode inserir(int, T) ha llençat l'excepció operacioImpossible");
+        assertThrows(operacioImpossible.class, () -> dllc.inserir(-1, cp3), "El métode inserir(int, T) NO ha llençat l'excepcio");
+        assertThrows(operacioImpossible.class, () -> dllc.inserir(100, cp3), "El métode inserir(int, T) NO ha llençat l'excepcio");
 
         assertEquals(0, dllc.getData().compareTo(cp1), "El métode inserir(int, T) en la primera posició no guarda l'element en la primera posició");
         assertEquals(0, dllc.getFwd().getFwd().getFwd().getData().compareTo(cp2), "El métode inserir(int, T) en la cuarta posició no guarda l'element en la primera posició");
@@ -77,7 +75,7 @@ class DLLTest {
 
     /**
      * Es comprovara que cada posició de el DLL utilitzant el metode obtenir(int)
-     * retorni els objectes correctes. I, que llençi l'excepció operacioImposible
+     * retorni els objectes correctes. I, que llençi l'excepció operacioImpossible
      * quan la poscició introduida estigui fora del rang ([1, longitud()]).
      */
     @Test
@@ -91,13 +89,13 @@ class DLLTest {
             }
         });
 
-        assertThrows(operacioImposible.class, () -> dllc.obtenir(100), "El métode inserir(int, T) NO ha llençat l'excepcio");
-        assertThrows(operacioImposible.class, () -> dllc.obtenir(-1 ), "El métode inserir(int, T) NO ha llençat l'excepcio");
+        assertThrows(operacioImpossible.class, () -> dllc.obtenir(100), "El métode inserir(int, T) NO ha llençat l'excepcio");
+        assertThrows(operacioImpossible.class, () -> dllc.obtenir(-1 ), "El métode inserir(int, T) NO ha llençat l'excepcio");
     }
 
     /**
      * Es comprovara que s'eliminin correctament els elements de cada posició critica
-     * la primera, cualsevol del mig i l'ultima. I, que llençi l'excepció operacioImposible
+     * la primera, cualsevol del mig i l'ultima. I, que llençi l'excepció operacioImpossible
      * quan la poscició introduida estigui fora del rang ([1, longitud()]).
      *
      */
@@ -114,15 +112,15 @@ class DLLTest {
             }
         });
 
-        /** Esborrar elements de dll particulars */
+        /* Esborrar elements de dll particulars */
         dllc = new DLL<>();
         dllc.inserir(a);
         assertDoesNotThrow(()->dllc.esborrar(1));
         assertNotNull(dllc);
-        /** Posició fora del rang */
+        /* Posició fora del rang */
         reiniciarDLL();
-        assertThrows(operacioImposible.class, () -> dllc.obtenir(100), "El métode inserir(int, T) NO ha llençat l'excepcio");
-        assertThrows(operacioImposible.class, () -> dllc.obtenir(-1 ), "El métode inserir(int, T) NO ha llençat l'excepcio");
+        assertThrows(operacioImpossible.class, () -> dllc.obtenir(100), "El métode inserir(int, T) NO ha llençat l'excepcio");
+        assertThrows(operacioImpossible.class, () -> dllc.obtenir(-1 ), "El métode inserir(int, T) NO ha llençat l'excepcio");
     }
 
     /**
@@ -146,7 +144,7 @@ class DLLTest {
         dllc.inserir(f);
         assertEquals(6, dllc.longitud(), "La longitud de un DLL amb 6 element ha de ser 6. " + dllc);
 
-        try{
+        assertDoesNotThrow(()->{
             dllc.esborrar(1);
             assertEquals(5, dllc.longitud(), "La longitud de un DLL amb 5 element ha de ser 5. " + dllc);
             dllc.esborrar(1);
@@ -159,9 +157,8 @@ class DLLTest {
             assertEquals(1, dllc.longitud(), "La longitud de un DLL amb 1 element ha de ser 1. " + dllc);
             dllc.esborrar(1);
             assertEquals(0, dllc.longitud(), "La longitud de un DLL amb 0 element ha de ser 0. " + dllc);
-        }catch (operacioImposible oi){
-            System.out.println(oi);
-        }
+        }, "El mètode esborrar ha llençat l'excepció operacioImpossible");
+
     }
 
     /**

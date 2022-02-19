@@ -1,7 +1,7 @@
 package EstructuraDades;
 
 import Excepcions.elementNoExisteix;
-import Excepcions.operacioImposible;
+import Excepcions.operacioImpossible;
 
 import java.util.Iterator;
 
@@ -51,11 +51,11 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
      * Posició -> [1, longitud()]
      * @param posicio posició a inserir element
      * @param data element a inserir.
-     * @throws operacioImposible posició fora del rang de la llista
+     * @throws operacioImpossible posició fora del rang de la llista
      */
     @Override
-    public void inserir(int posicio, T data) throws operacioImposible {
-        if(posicio > longitud() || posicio < 1) throw new operacioImposible(posicio);
+    public void inserir(int posicio, T data) throws operacioImpossible {
+        if(posicio > longitud() || posicio < 1) throw new operacioImpossible(posicio);
         DLL<T> poi = this;
         for(int i = 1; i < posicio;i++){
             poi = poi.fwd;
@@ -85,17 +85,17 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
      * Posició -> [1, longitud()]
      * @param posicio posició de l'element
      * @return
-     * @throws operacioImposible posició fora del rang de la llista
+     * @throws operacioImpossible posició fora del rang de la llista
      */
     @Override
-    public T obtenir(int posicio) throws operacioImposible {
-        if(posicio > longitud() || posicio < 1) throw new operacioImposible(posicio);
+    public T obtenir(int posicio) throws operacioImpossible {
+        if(posicio > longitud() || posicio < 1) throw new operacioImpossible(posicio);
         int i = 0;
         for(T data : this){
             i++;
             if(i == posicio) return data;
         }
-        throw new operacioImposible(posicio);
+        throw new operacioImpossible(posicio);
     }
 
     @Override
@@ -112,12 +112,12 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
     /**
      * Posició -> [1, longitud()]
      * @param posicio posició de l'element a esborrar
-     * @throws operacioImposible posició fora del rang de la llista
+     * @throws operacioImpossible posició fora del rang de la llista
      */
     /* TODO */
     @Override
-    public void esborrar(int posicio) throws operacioImposible {
-        if(posicio > longitud() || posicio < 1) throw new operacioImposible(posicio);
+    public void esborrar(int posicio) throws operacioImpossible {
+        if(posicio > longitud() || posicio < 1) throw new operacioImpossible(posicio);
 
         DLL<T> poi = this;
         for(int i = 1; i < posicio;i++){

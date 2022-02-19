@@ -1,7 +1,7 @@
 package EstructuraDades;
 
 import Excepcions.elementNoExisteix;
-import Excepcions.operacioImposible;
+import Excepcions.operacioImpossible;
 
 public interface TADLlista<T> {
 
@@ -20,17 +20,17 @@ public interface TADLlista<T> {
      * Funció per tal d'inserir un element a la llista en la posició indicada.
      * @param posicio posició a inserir element
      * @param data element a inserir.
-     * @throws operacioImposible posició fora de la llista
+     * @throws operacioImpossible posició fora de la llista
      */
-    void inserir(int posicio, T data) throws operacioImposible;
+    void inserir(int posicio, T data) throws operacioImpossible;
 
     /**
      * Funció que retorna l'element que hi ha en una determinada posició
      * @param posicio posició de l'element
-     * @throws operacioImposible posició fora de la llista
+     * @throws operacioImpossible posició fora de la llista
      * @return element T a la posició indicada.
      */
-    T obtenir(int posicio) throws operacioImposible;
+    T obtenir(int posicio) throws operacioImpossible;
 
     /**
      * Retorna el nombre d'elements que conté la llista en aquest moment.
@@ -41,9 +41,9 @@ public interface TADLlista<T> {
     /**
      * Funció per tal d'esborrar un element de la llista en una posició determinada.
      * @param posicio posició de l'element a esborrar
-     * @throws operacioImposible posició fora de la llista.
+     * @throws operacioImpossible posició fora de la llista.
      */
-    void esborrar(int posicio) throws operacioImposible;
+    void esborrar(int posicio) throws operacioImpossible;
 
     /**
      * Funció que comprova si un element està en la llista
