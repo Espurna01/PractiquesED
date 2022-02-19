@@ -126,7 +126,7 @@ class DLLTest {
     }
 
     /**
-     * Es comprovara que la longitud comenci en 0 i, augmenti
+     * Es comprovarà que la longitud comenci en 0 i, augmenti
      * i disminueixi a mesura que s'insereixen i s'esborren elements.
      */
     @Test
@@ -166,17 +166,18 @@ class DLLTest {
 
     /**
      * Es comprovara que per a cada entrada de buscar(T) el resultat sera
-     * igual a la mateixa posició d'aquell objecte.
+     * igual a la mateixa posició d'aquell objecte. I, que llençi l'excepció
+     * elementNoExisteix si l'element no existeix al DLL.
      */
     @Test
     void buscar() {
         reiniciarDLL();
-        for(int i = 0;i < dllc.longitud();i++){
-            assertDoesNotThrow(()->{
-                assertEquals(dllc.buscar(lcp[i]), i + 1, "Per trobar l'element " + lcp[i] + " no s'han recorregut el nombre correcte de elements");
-            }, "");
-
-        }
+        assertDoesNotThrow(()->{
+            for (int i = 0; i < dllc.longitud();i++)
+                assertEquals(dllc.buscar(lcp[i]), i + 1,
+                        "Per trobar l'element " + lcp[i] + " no s'han recorregut el nombre correcte de elements");
+        }, "El métode DLL.buscar(T) ha llençat l'excepció elementNoExisteix.");
+        assertThrows(elementNoExisteix.class, ()->dllc.buscar(new CiutadaPeu("element","No","Existeix")), "El métode DLL.buscar NO ha llençat l'excepció noExisteixElement. ");
     }
 
     /**
