@@ -1,10 +1,10 @@
-package JUnit;
+package fase1.JUnit;
 
-import EstructuraDades.CiutadaPeu;
-import EstructuraDades.DLL;
-import EstructuraDades.TADCiutada;
-import Excepcions.elementNoExisteix;
-import Excepcions.operacioImpossible;
+import fase1.EstructuraDades.CiutadaPeu;
+import fase1.EstructuraDades.DLL;
+import fase1.EstructuraDades.TADCiutada;
+import fase1.Excepcions.elementNoExisteix;
+import fase1.Excepcions.operacioImpossible;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

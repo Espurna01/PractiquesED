@@ -1,4 +1,4 @@
-package Excepcions;
+package fase1.Excepcions;
 
 public class operacioImpossible extends Exception{
     public operacioImpossible(int p){

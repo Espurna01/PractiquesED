@@ -1,4 +1,4 @@
-package EstructuraDades;
+package fase1.EstructuraDades;
 
 public class CiutadaPeu extends TADCiutada{
     public CiutadaPeu(String nom, String cognom, String dni) {

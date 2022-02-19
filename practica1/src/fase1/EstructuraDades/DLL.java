@@ -1,7 +1,7 @@
-package EstructuraDades;
+package fase1.EstructuraDades;
 
-import Excepcions.elementNoExisteix;
-import Excepcions.operacioImpossible;
+import fase1.Excepcions.elementNoExisteix;
+import fase1.Excepcions.operacioImpossible;
 
 import java.util.Iterator;
 

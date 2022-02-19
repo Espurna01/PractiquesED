@@ -1,10 +1,10 @@
-package Aplicacio;
+package fase1.Aplicacio;
 
-import EstructuraDades.CiutadaPeu;
-import EstructuraDades.DLL;
-import EstructuraDades.TADCiutada;
-import Excepcions.elementNoExisteix;
-import Excepcions.operacioImpossible;
+import fase1.EstructuraDades.CiutadaPeu;
+import fase1.EstructuraDades.DLL;
+import fase1.EstructuraDades.TADCiutada;
+import fase1.Excepcions.elementNoExisteix;
+import fase1.Excepcions.operacioImpossible;
 
 public class App {
     public static <T extends Comparable<T>> void reiniciarDll(DLL<T> dll, T[] array){

@@ -1,4 +1,4 @@
-package EstructuraDades;
+package fase1.EstructuraDades;
 
 import java.util.Iterator;
 

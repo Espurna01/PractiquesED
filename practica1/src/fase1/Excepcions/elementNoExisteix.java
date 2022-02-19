@@ -1,4 +1,4 @@
-package Excepcions;
+package fase1.Excepcions;
 
 public class elementNoExisteix extends Exception{
     public elementNoExisteix(int e, int s){
