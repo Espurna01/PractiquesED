@@ -1,27 +1,33 @@
 package Aplicacio;
 
+import EstructuraDades.CiutadaCotxe;
+import EstructuraDades.CiutadaPeu;
 import EstructuraDades.DLL;
+import EstructuraDades.TADCiutada;
 import Excepcions.elementNoExisteix;
 import Excepcions.operacioImposible;
 
 public class App {
     public static void main(String[] args) throws elementNoExisteix, operacioImposible {
-        DLL<Integer> dll = new DLL<>(3);
-        dll.inserir(4);
-        dll.inserir(5);
-        dll.inserir(1, 2);
-        System.out.println(dll);
-        dll.inserir(8);
-        System.out.println(dll.longitud());
-        dll.inserir(4,7);
-        dll.inserir(4,6);
-        System.out.println(dll);
+        DLL<TADCiutada> dll = new DLL<>();
+        TADCiutada a = new CiutadaCotxe("Matias Ariel","Larrosa Babio","39458904N");
+        TADCiutada b = new CiutadaPeu("Nancy Elvira","Babio Sanchez","39458903B");
+        TADCiutada c = new CiutadaCotxe("Jordi","Cojuhar Cojuhar","123456789Z");
+        TADCiutada d = new CiutadaPeu("Hugo","Acedo Coronado","987654321A");
+        TADCiutada e = new CiutadaCotxe("Lucas","Larrosa Babio","789654123T");
+        TADCiutada f = new CiutadaPeu("Marcelo Eduardo","Larrosa Bermudéz","7531594862M");
 
-        dll.esborrar(1);
-        System.out.println(dll);
-        dll.esborrar(dll.longitud());
-        System.out.println(dll);
-        dll.esborrar(dll.longitud()/2);
-        System.out.println(dll);
+        dll.inserir(a);
+        dll.inserir(b);
+        dll.inserir(c);
+        dll.inserir(d);
+        dll.inserir(e);
+        dll.inserir(f);
+
+        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("Elements a la llista:\n" + dll);
+
+
+
     }
 }
