@@ -11,13 +11,13 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
     private DLL<T> bkw;
     private T data;
 
+    public DLL(){
+        this(null);
+    }
+
     public DLL(T data){
         crear();
         this.data = data;
-    }
-
-    public DLL(){
-        this(null);
     }
 
     public DLL(T data, DLL<T> bkw){
@@ -30,6 +30,7 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
     public void crear() {
         fwd = null;
         bkw = null;
+        data = null;
     }
 
     @Override
@@ -76,8 +77,8 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
         bkw = newNode;
     }
 
-    private DLL<T> getBkw() {
-        return bkw;
+    private void setFwd(DLL<T> fwd) {
+        this.fwd = fwd;
     }
 
     /**
@@ -149,10 +150,6 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
 
     }
 
-    private void setData(T data) {
-        this.data = data;
-    }
-
     @Override
     public int buscar(T data) throws elementNoExisteix {
         int elem = 0;
@@ -170,16 +167,20 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
         return new DLLiterator<>(this);
     }
 
-    public DLL<T> getFwd() {
-        return fwd;
-    }
-
     public T getData() {
         return data;
     }
 
-    private void setFwd(DLL<T> fwd) {
-        this.fwd = fwd;
+    private void setData(T data) {
+        this.data = data;
+    }
+
+    public DLL<T> getFwd() {
+        return fwd;
+    }
+
+    public DLL<T> getBkw() {
+        return bkw;
     }
 
     public String toString(){
@@ -188,6 +189,5 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
             r += "} ⇄ {" + data;
         }
         return r + "} ⇄ {null}]";
-
     }
 }

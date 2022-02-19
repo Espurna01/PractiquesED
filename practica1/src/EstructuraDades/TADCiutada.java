@@ -24,6 +24,6 @@ public abstract class TADCiutada implements Comparable<TADCiutada> {
 
     @Override
     public String toString() {
-        return nom;
+        return nom + "(" + dni + ")";
     }
 }
