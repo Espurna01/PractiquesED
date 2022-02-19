@@ -9,5 +9,4 @@ public class CiutadaPeu extends TADCiutada{
         System.out.println("Estic caminant");
     }
 
-
 }

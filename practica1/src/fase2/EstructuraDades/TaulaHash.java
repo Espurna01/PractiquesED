@@ -6,6 +6,7 @@ import fase2.Excepcions.noInsercio;
 import fase2.Excepcions.noObtenir;
 
 public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> implements TADHash<K, T>{
+    // TODO: 19/02/2022
     @Override
     public void crear() {
 
@@ -50,4 +51,5 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
     public Float obtenirFactorDeCarrega() {
         return null;
     }
+
 }
