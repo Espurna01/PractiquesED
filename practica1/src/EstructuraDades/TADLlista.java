@@ -18,19 +18,19 @@ public interface TADLlista<T> {
 
     /**
      * Funció per tal d'inserir un element a la llista en la posició indicada.
-     * @param posició posició a inserir element
+     * @param posicio posició a inserir element
      * @param data element a inserir.
      * @throws operacioImposible posició fora de la llista
      */
-    void inserir(int posició, T data) throws operacioImposible;
+    void inserir(int posicio, T data) throws operacioImposible;
 
     /**
      * Funció que retorna l'element que hi ha en una determinada posició
-     * @param posició posició de l'element
+     * @param posicio posició de l'element
      * @throws operacioImposible posició fora de la llista
      * @return element T a la posició indicada.
      */
-    T obtenir(int posició) throws operacioImposible;
+    T obtenir(int posicio) throws operacioImposible;
 
     /**
      * Retorna el nombre d'elements que conté la llista en aquest moment.
@@ -40,10 +40,10 @@ public interface TADLlista<T> {
 
     /**
      * Funció per tal d'esborrar un element de la llista en una posició determinada.
-     * @param posició posició de l'element a esborrar
+     * @param posicio posició de l'element a esborrar
      * @throws operacioImposible posició fora de la llista.
      */
-    void Esborrar(int posició) throws operacioImposible;
+    void esborrar(int posicio) throws operacioImposible;
 
     /**
      * Funció que comprova si un element està en la llista
@@ -51,6 +51,6 @@ public interface TADLlista<T> {
      * @throws elementNoExisteix l'element no existeix a la llista
      * @return nombre d'elements que s'hagin accedit per tal de comprovar si l'element existeix o no.
      */
-    int Buscar(T data) throws elementNoExisteix;
+    int buscar(T data) throws elementNoExisteix;
 
 }
