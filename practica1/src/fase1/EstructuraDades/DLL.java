@@ -37,10 +37,11 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
     public void inserir(T data) {
         if(data != null){
             if (this.data != null) {
-                if(fwd != null)
-                    fwd.inserir(data);
-                else
-                    fwd = new DLL<>(data, this);
+                DLL<T> poi = this;
+                while(poi.getFwd() != null){
+                    poi = poi.getFwd();
+                }
+                poi.setFwd(new DLL<>(data, this));
             } else
                 this.data = data;
 
@@ -57,9 +58,11 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
     public void inserir(int posicio, T data) throws operacioImpossible {
         if(posicio > longitud() || posicio < 1) throw new operacioImpossible(posicio);
         DLL<T> poi = this;
+
         for(int i = 1; i < posicio;i++){
             poi = poi.fwd;
         }
+        System.out.println("poi: " + poi.data);
         if(poi.bkw == null){
             DLL<T> newNode = new DLL<>(this.data, this);
             newNode.setFwd(fwd);

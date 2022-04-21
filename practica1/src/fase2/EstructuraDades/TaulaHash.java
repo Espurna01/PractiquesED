@@ -5,10 +5,7 @@ import fase1.Excepcions.elementNoExisteix;
 import fase2.Excepcions.noInsercio;
 import fase2.Excepcions.noObtenir;
 import fase2.Excepcions.noTrobat;
-import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Node;
 
-import java.security.cert.CRLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -17,18 +14,19 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
     ArrayList<NodeTaulaHash<K, T>> taula;
     private int capacity;
     private static final float limit = 0.75f;
+    private boolean repetits;
 
     public TaulaHash(){
         crear();
     }
 
-    public TaulaHash(int icapacity){
-        crear();
+    public TaulaHash(int icapacity, boolean permetreRepetits){
         capacity = icapacity;
         taula = new ArrayList<>(capacity);
         for(int i = 0; i < capacity; i++){
             taula.add(null);
         }
+        repetits = permetreRepetits;
     }
 
     @Override
@@ -38,6 +36,7 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
         for(int i = 0; i < capacity; i++){
             taula.add(null);
         }
+        repetits = false;
     }
 
     @Override
@@ -50,7 +49,7 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
                     node = node.seg;
                 else break;
             }
-            if(key.compareTo(node.getClau()) != 0){
+            if(repetits || key.compareTo(node.getClau()) != 0){
                 NodeTaulaHash<K, T> nnode = new NodeTaulaHash<>(key, data);
                 node.setSeg(nnode);
             }else {
@@ -110,7 +109,7 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
         int collisions = 0;
         int index = Hasher.getHash(key) % capacity;
         NodeTaulaHash<K, T> node = taula.get(index);
-        while(node != null && !node.getClau().equals(key)){
+        while(node != null && node.getClau().compareTo(key) != 0){
             node = node.getSeg();
             collisions++;
         }
@@ -218,7 +217,6 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
         return sb.toString();
     }
 
-    @NotNull
     @Override
     public Iterator<T> iterator() {
         return new TaulaHashIterator<K, T>(this);
