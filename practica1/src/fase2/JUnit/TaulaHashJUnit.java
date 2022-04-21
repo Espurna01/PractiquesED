@@ -97,6 +97,11 @@ public class TaulaHashJUnit {
 
     }
 
+    /**
+     * Obtenir comprova si es troben tots els elements i s'hi s'obtenen correctament.
+     * @throws noInsercio
+     */
+
     @Test
     void obtenir() throws noInsercio {
         reiniciarTH(); /* {a, b, c, d, e, f} */
@@ -114,6 +119,11 @@ public class TaulaHashJUnit {
         assertThrows(noObtenir.class, () -> th.obtenir("Clau Inexistent"), "Buscar una clau que no hi és a la llista no llença una excepció.");
     }
 
+    /**
+     * Comprova que es puguin buscar tots els elemets i, s'hi l'element que s'està buscant forma part d'una colisió
+     * també és troba.
+     * @throws noInsercio
+     */
     @Test
     void buscar() throws noInsercio {
         reiniciarTH();
@@ -137,6 +147,10 @@ public class TaulaHashJUnit {
 
     }
 
+    /**
+     * Mida comprova que la mida augmenta i disminueix correctament.
+     * @throws noInsercio
+     */
     @Test
     void mida() throws noInsercio {
         reiniciarTH();
@@ -149,8 +163,13 @@ public class TaulaHashJUnit {
         th.crear();
 
         assertEquals(0, th.mida(), "S'ha reiniciat la Taula i la mida no es correspon.");
+
     }
 
+    /**
+     * Es comprova que s'eliminin elements corectament en tots els casos possibles.
+     * @throws noInsercio
+     */
     @Test
     void esborrar() throws noInsercio {
         reiniciarTH(); /* {a, b, c, d, e, f} */
@@ -205,6 +224,10 @@ public class TaulaHashJUnit {
 
     }
 
+    /**
+     * Es comprova que esl valors obtinguts siguin tots els que hi ha present a la llista.
+     * @throws noInsercio
+     */
     @Test
     void obtenirValors() throws noInsercio {
         reiniciarTH(); /* {a, b, c, e, f} */
@@ -250,6 +273,10 @@ public class TaulaHashJUnit {
         assertTrue(and, "No s'han trobat tots els elements.");
     }
 
+    /**
+     * Es comprova que totes les claus obtingudes es corresponguin amb totes les claus que hi haurien d'haber.
+     * @throws noInsercio
+     */
     @Test
     void obtenirClaus() throws noInsercio {
         reiniciarTH(); /* {a, b, c, d, e, f} */
@@ -274,6 +301,10 @@ public class TaulaHashJUnit {
 
     }
 
+    /**
+     * Reinicia la taula de hash per tal de no repetir codi.
+     * @throws noInsercio
+     */
     private void reiniciarTH() throws noInsercio {
         th = new TaulaHash<>();
         for(CiutadaPeu cp : lcp){

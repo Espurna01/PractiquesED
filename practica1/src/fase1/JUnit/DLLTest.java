@@ -63,16 +63,13 @@ class DLLTest {
         CiutadaPeu cp2 = new CiutadaPeu("2","2", "2");
         CiutadaPeu cp3 = new CiutadaPeu("3","3", "3");
 
-        assertDoesNotThrow(() -> dllc.inserir(1, cp1), "El métode inserir(int, T) ha llençat l'excepció operacioImpossible"); /* Inserim a la primera posicio de la llista [1, a, b, c, ..., f ] */
-        System.out.println("Afegit 1: " + dllc);
+        assertDoesNotThrow(() -> dllc.inserir(1, cp1), "El métode inserir(int, T) ha llençat l'excepció operacioImpossible");
+        /* Inserim a la primera posicio de la llista [1, a, b, c, ..., f ] */
         assertDoesNotThrow(() -> dllc.inserir(4, cp2), "El métode inserir(int, T) ha llençat l'excepció operacioImpossible");
-        System.out.println("Afegit 4: " + dllc);
         assertThrows(operacioImpossible.class, () -> dllc.inserir(-1, cp3), "El métode inserir(int, T) NO ha llençat l'excepcio");
         assertThrows(operacioImpossible.class, () -> dllc.inserir(100, cp3), "El métode inserir(int, T) NO ha llençat l'excepcio");
 
         assertEquals(0, dllc.getData().compareTo(cp1), "El métode inserir(int, T) en la primera posició no guarda l'element en la primera posició");
-        System.out.println(dllc);
-        System.out.println(dllc.getFwd().getFwd().getFwd().getData());
         assertEquals(0, dllc.getFwd().getFwd().getFwd().getData().compareTo(cp2), "El métode inserir(int, T) en la cuarta posició no guarda l'element en la primera posició");
     }
 

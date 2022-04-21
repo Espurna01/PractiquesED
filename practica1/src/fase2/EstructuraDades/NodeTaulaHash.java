@@ -17,7 +17,6 @@ public class NodeTaulaHash<K extends Comparable<K>, T extends Comparable<T>> {
         seg = null;
     }
 
-
     public K getClau() {
         return clau;
     }

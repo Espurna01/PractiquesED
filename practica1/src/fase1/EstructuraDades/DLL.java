@@ -41,7 +41,7 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
                 while(poi.getFwd() != null){
                     poi = poi.getFwd();
                 }
-                poi.setFwd(new DLL<>(data, this));
+                poi.setFwd(new DLL<>(data, poi));
             } else
                 this.data = data;
 
@@ -49,30 +49,40 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
     }
 
     /**
-     * Posició -> [1, longitud()]
+     * Posició -> [1, longitud() + 1]
      * @param posicio posició a inserir element
      * @param data element a inserir.
      * @throws operacioImpossible posició fora del rang de la llista
      */
     @Override
     public void inserir(int posicio, T data) throws operacioImpossible {
-        if(posicio > longitud() || posicio < 1) throw new operacioImpossible(posicio);
+        if(posicio > longitud() + 1 || posicio < 1) throw new operacioImpossible(posicio);
         DLL<T> poi = this;
 
         for(int i = 1; i < posicio;i++){
-            poi = poi.fwd;
+            if(poi.getFwd() != null)
+                poi = poi.fwd;
         }
-        System.out.println("poi: " + poi.data);
-        if(poi.bkw == null){
+
+        if(poi.getBkw() == null) {
             DLL<T> newNode = new DLL<>(this.data, this);
             newNode.setFwd(fwd);
-            setFwd(newNode);
+            fwd = newNode;
             this.data = data;
-        } else{
-            DLL<T> newNode = new DLL<>(data, poi.getBkw());
-            newNode.setFwd(poi);
-            poi.getBkw().setFwd(newNode);
-            poi.setBkw(newNode);
+        } else {
+            /* Al final */
+            if(posicio == longitud() + 1){
+                DLL<T> newNode = new DLL<>(data, poi);
+                newNode.setFwd(poi.getFwd());
+                if(poi.getFwd() != null)
+                    poi.getFwd().setBkw(newNode);
+                poi.setFwd(newNode);
+            } else {
+                DLL<T> newNode = new DLL<>(data, poi.getBkw());
+                newNode.setFwd(poi);
+                poi.getBkw().setFwd(newNode);
+                poi.setBkw(newNode);
+            }
         }
     }
 
@@ -109,7 +119,6 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
         for(T data : this)
             i++;
         return i;
-
     }
 
     /**
@@ -117,7 +126,6 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
      * @param posicio posició de l'element a esborrar
      * @throws operacioImpossible posició fora del rang de la llista
      */
-    /* TODO */
     @Override
     public void esborrar(int posicio) throws operacioImpossible {
         if(posicio > longitud() || posicio < 1) throw new operacioImpossible(posicio);
@@ -126,14 +134,14 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
         for(int i = 1; i < posicio;i++){
             poi = poi.fwd;
         }
-        if(poi.fwd == null){
+        if(poi.fwd == null){    /* Ultim */
             if(poi.getBkw() != null){
                 poi.getBkw().setFwd(null);
                 poi.setBkw(null);
             }
-            poi.setData(null);
+            poi.setData(null); /* Unic */
         } else{
-            if(poi.getBkw() == null){
+            if(poi.getBkw() == null){   /* Primer */
                 T data = poi.getFwd().getData();
                 setData(data);
                 if(poi.getFwd().getFwd() != null)
@@ -142,7 +150,7 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
                 setFwd(poi.getFwd().getFwd());
                 poi = tmp;
             }
-            else{
+            else{ /* Mig */
                 poi.getBkw().setFwd(poi.getFwd());
                 poi.getFwd().setBkw(poi.getBkw());
             }

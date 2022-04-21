@@ -22,14 +22,13 @@ public class TaulaHashIterator<K extends Comparable<K>, T extends Comparable<T>>
 
     @Override
     public boolean hasNext() {
-        return index != th.getCapacity();
+        return index < th.getCapacity();
     }
 
     @Override
     public T next() {
         ArrayList<NodeTaulaHash<K, T>> al = th.getAl();
         T data = nth.getValor();
-
         nth = nth.getSeg();
         if(nth == null){
             for(index =  index + 1; index < th.getCapacity(); index++){
@@ -39,7 +38,6 @@ public class TaulaHashIterator<K extends Comparable<K>, T extends Comparable<T>>
                 }
             }
         }
-
         return data;
     }
 }

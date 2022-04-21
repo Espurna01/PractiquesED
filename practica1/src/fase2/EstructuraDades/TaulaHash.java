@@ -42,10 +42,10 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
     @Override
     public void inserir(K key, T data) throws noInsercio {
         int index = Hasher.getHash(key) % capacity;
-        if(taula.get(index) != null){
+        if(taula.get(index) != null){ /* Colisió */
             NodeTaulaHash<K, T> node = taula.get(index);
             while(node.seg != null){
-                if(key.compareTo(node.getClau()) != 0)
+                if(repetits || key.compareTo(node.getClau()) != 0)
                     node = node.seg;
                 else break;
             }
@@ -53,11 +53,11 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
                 NodeTaulaHash<K, T> nnode = new NodeTaulaHash<>(key, data);
                 node.setSeg(nnode);
             }else {
-                if(node.getValor().equals(data))
+                if(node.getValor().compareTo(data) == 0)
                     throw new noInsercio(index);
                 node.setValor(data);
             }
-        } else {
+        } else { /* No colisió */
             NodeTaulaHash<K, T> nnode = new NodeTaulaHash<>(key, data);
             taula.set(index, nnode);
         }
@@ -94,12 +94,13 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
     @Override
     public T obtenir(K key) throws noObtenir {
         int index = Hasher.getHash(key) % capacity;
-        if(taula.get(index) == null)
+        if(taula.get(index) == null) /* No existeix la posició */
             throw new noObtenir(key);
         NodeTaulaHash<K, T> node = taula.get(index);
         while(node != null && node.getClau().compareTo(key) != 0){
             node = node.getSeg();
         }
+        /* La clau no es correspon amb qualsevol guardada */
         if(node == null) throw new noObtenir(key);
         return node.getValor();
     }
@@ -136,12 +137,11 @@ public class TaulaHash<K extends Comparable<K>, T extends Comparable<T>> impleme
         int index = Hasher.getHash(key) % capacity;
         if(taula.get(index) == null)
             throw new elementNoExisteix(0, mida());
-
         NodeTaulaHash<K, T> node = taula.get(index);
-        if(node.seg == null ){
+        if(node.seg == null){ /* No col·lisió */
             if(key.compareTo(node.getClau()) != 0) throw new elementNoExisteix(1, mida());
             taula.set(index, null);
-        } else {
+        } else { /* Col·lisió */
             NodeTaulaHash<K, T> ant = taula.get(index);
             int i = 0;
             if(node.getClau().compareTo(key) != 0){

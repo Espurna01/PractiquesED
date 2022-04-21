@@ -35,5 +35,8 @@ public class App {
          * Espai per fer les comprovacions que cregui necessàries. Per fer el joc de proves he fet servir JUnit testing.
          */
 
+        System.out.println(Hasher.getHash("Patata"));
+        System.out.println(Hasher.getHash("patata"));
+
     }
 }

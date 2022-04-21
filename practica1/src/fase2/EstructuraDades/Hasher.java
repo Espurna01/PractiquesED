@@ -23,7 +23,7 @@ public class Hasher {
     }
 
     //Overload
-    public static int getHash(Integer toHash){
+    public static int getHash(int toHash){
         return toHash;
     }
 

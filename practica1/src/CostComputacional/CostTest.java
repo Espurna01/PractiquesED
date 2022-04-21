@@ -35,7 +35,6 @@ public class CostTest {
                 } catch (noInsercio ni){
                     System.out.println(ni);
                 }
-
             }
             float busquedesDLL = 0;
             float busquedesTH = 0;
