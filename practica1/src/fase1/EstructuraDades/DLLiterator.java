@@ -12,7 +12,7 @@ public class DLLiterator<T extends Comparable<T>> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return dll!=null;
+        return dll != null;
     }
 
     @Override

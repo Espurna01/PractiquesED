@@ -22,8 +22,12 @@ public abstract class TADCiutada implements Comparable<TADCiutada> {
         return dni.compareTo(o.getDni());
     }
 
+    public String getNom(){
+        return nom;
+    }
+
     @Override
     public String toString() {
-        return nom + "(" + dni + ")";
+        return nom + ";" + cognom + "(" + dni + ")";
     }
 }

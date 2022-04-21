@@ -24,6 +24,9 @@ public class App {
 
         reiniciarDll(dll, lcp);
         System.out.println("Elements a la DLL: " + dll);
+        /**
+         * Espai per fer les comprovacions que cregui necessàries. Per fer el joc de proves he fet servir JUnit testing.
+         */
 
     }
 }

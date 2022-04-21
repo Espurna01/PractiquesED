@@ -28,7 +28,7 @@ class DLLTest {
         dllc = new DLL<>();
         dllc.crear();
         assertNotNull(dllc, "La DLL es null");
-        assertNull(dllc.getData(), "La data inicial creada es diferent a null");
+        assertNull(dllc.getData(), "La data inicial creada es null");
     }
 
     /**
@@ -44,9 +44,8 @@ class DLLTest {
         dllc.inserir(e);
         dllc.inserir(f);
 
-        int i = 0;
         DLL<TADCiutada> poi = dllc;
-        for(;i < 6;i++,poi = poi.getFwd()){
+        for(int i = 0;i < 6;i++,poi = poi.getFwd()){
             assertEquals(0, poi.getData().compareTo(lcp[i]), poi + " != " + lcp[i]);
         }
     }

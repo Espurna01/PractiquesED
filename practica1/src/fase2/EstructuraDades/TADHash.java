@@ -4,6 +4,7 @@ import fase1.EstructuraDades.DLL;
 import fase1.Excepcions.elementNoExisteix;
 import fase2.Excepcions.noInsercio;
 import fase2.Excepcions.noObtenir;
+import fase2.Excepcions.noTrobat;
 
 public interface TADHash<K extends Comparable<K>, T extends Comparable<T>> {
     /**
@@ -33,9 +34,9 @@ public interface TADHash<K extends Comparable<K>, T extends Comparable<T>> {
      * Mètode que comprova si un element està a la taula.
      * @param key Identificador
      * @return El coste de l'operació. Nombre d'elements que s'hagin accedit per tal de comprovar si l'element existeix o no.
-     * @throws elementNoExisteix No s'ha trobat l'element.
+     * @throws noTrobat No s'ha trobat l'element.
      */
-    int buscar(K key) throws elementNoExisteix;
+    int buscar(K key) throws noTrobat;
 
     /**
      * Mètode per saber la mida de la taula.
@@ -65,6 +66,6 @@ public interface TADHash<K extends Comparable<K>, T extends Comparable<T>> {
      * Mètode per obtenir el factor de càrrega
      * @return Retorna el factor de càrrega.
      */
-    Float obtenirFactorDeCarrega();
+    float obtenirFactorDeCarrega();
 
 }
