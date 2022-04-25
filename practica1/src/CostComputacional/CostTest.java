@@ -63,7 +63,7 @@ public class CostTest {
     }
 
     public static void toCSV(float[] mitjanaBusquedesDLL, float[] mitjanaBusquedesTH) throws IOException {
-        FileWriter fw = new FileWriter("CostComputacional.csv", false);
+        FileWriter fw = new FileWriter("CostComputacionalN-2.csv", false);
 
         fw.write("MIDA;BUSQUEDES DLL;BUSQUEDES TH" + ";\n");
         for(int i = 0; i < MAXN; i++){
