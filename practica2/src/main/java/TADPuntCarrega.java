@@ -1,3 +1,4 @@
+package main.java;
 import java.util.ArrayList;
 
 public interface TADPuntCarrega <V, E>{
@@ -41,4 +42,5 @@ public interface TADPuntCarrega <V, E>{
      * @return
      */
     ArrayList<V> adjacents(V v);
+
 }
