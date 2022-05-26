@@ -1,10 +1,10 @@
-package main.java;
+package main.java.DataStructure.MainStructures;
 
-import main.java.DataStructure.MainStructures.Endoll;
+import main.java.ID;
 
 import java.util.ArrayList;
 
-public class ZonaRecarrega implements Comparable<ZonaRecarrega> {
+public class ZonaRecarrega implements Comparable<ZonaRecarrega>, ID<Integer> {
     private int id_estacio;
     private String nom;
     private ArrayList<Endoll> endolls;
@@ -28,10 +28,6 @@ public class ZonaRecarrega implements Comparable<ZonaRecarrega> {
         return endolls.add(endoll);
     }
 
-
-    public int getId_estacio() {
-        return id_estacio;
-    }
 
     public ArrayList<Endoll> getEndolls() {
         return endolls;
@@ -59,6 +55,11 @@ public class ZonaRecarrega implements Comparable<ZonaRecarrega> {
 
     @Override
     public int compareTo(ZonaRecarrega o) {
-        return Integer.compare(id_estacio, o.getId_estacio());
+        return Integer.compare(id_estacio, o.getId());
+    }
+
+    @Override
+    public Integer getId() {
+        return id_estacio;
     }
 }

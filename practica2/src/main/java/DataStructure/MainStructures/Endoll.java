@@ -1,4 +1,4 @@
-package main.java;
+package main.java.DataStructure.MainStructures;
 
 public class Endoll {
     private final int id;

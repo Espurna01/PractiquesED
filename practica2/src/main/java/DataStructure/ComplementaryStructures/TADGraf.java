@@ -1,7 +1,7 @@
-package main.java;
+package main.java.DataStructure.ComplementaryStructures;
 import java.util.ArrayList;
 
-public interface TADPuntCarrega <V, E>{
+public interface TADGraf <V, E>{
     /**
      * Constructor per inicialitzar la taula.
      */
