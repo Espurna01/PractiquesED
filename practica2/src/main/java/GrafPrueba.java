@@ -141,7 +141,15 @@ public class GrafPrueba<V extends Comparable<V>, E> implements TADGraf<NodeGraf<
         heuristic.put("C", 7);
         heuristic.put("D", 0);
 
-        MinHeap<NodeEstrella<V, E>> mh;
+        MinHeap<NodeEstrella<V, E>> mh = new MinHeap<>();
+        NodeEstrella<V, E> current = new NodeEstrella<>(hmv.get("A"), heuristic.get("A"), valorAresta(hmv.get("A"), hmv.get("D")));
+        while(current.getActual() != hmv.get(desti)){
+            for(NodeGraf<V, E> ng : adjacents(current.getActual())){
+                if(){
+
+                }
+            }
+        }
 
         return null;
     }
