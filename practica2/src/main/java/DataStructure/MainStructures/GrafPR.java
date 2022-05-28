@@ -64,6 +64,7 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
                 }
             }
             if(azr.get(i).getPrim_col() == null && azr.get(i).getPrim_fil() == null){
+                System.out.println(azr.get(i));
                 afegirAresta(azr.get(i), minNode, new Aresta<>(minDist));
             }
         }
@@ -137,13 +138,11 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
 
         Aresta<ZonaRecarrega, Double> a;
         if(v1.getInfo().compareTo(v2.getInfo()) < 0){
-            a = v1.getPrim_fil();
-            for(;!aresta && a != null; a = a.getSeg_fil()){
+            for(a = v1.getPrim_fil();!aresta && a != null; a = a.getSeg_fil()){
                 aresta = a.getNode_col() == v2;
             }
         }else{
-            a = v1.getPrim_col();
-            for(;!aresta && a != null; a = a.getSeg_col()){
+            for(a = v1.getPrim_col();!aresta && a != null; a = a.getSeg_col()){
                 aresta = a.getNode_fil() == v2;
             }
         }
@@ -282,28 +281,39 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
 
     private void profundidat0(HashMap<Integer, DistanciaNodes> nodes, int id, int autonomia){
         nodes.get(id).setGris();
-        for(Aresta<ZonaRecarrega, Double> a = nodes.get(id).node.getPrim_fil(); a != null; a = a.getSeg_fil()){
-            NodeGraf<ZonaRecarrega, Double> node = a.getNode_col();
-            switch (nodes.get(node.getInfo().getId()).getEstat()){
+        for(NodeGraf<ZonaRecarrega, Double> node : adjacents(nodes.get(id).node)){
+            switch (nodes.get(node.getInfo().getId()).getEstat()) {
                 case BLANC:
-                    if(a.getInfo() <= autonomia){
+                    if(valorAresta(node, nodes.get(id).node).getInfo() <= autonomia){
                         nodes.get(node.getInfo().getId()).accesible = true;
                     }
                     profundidat0(nodes, node.getInfo().getId(), autonomia);
                     break;
             }
         }
-        for(Aresta<ZonaRecarrega, Double> a = nodes.get(id).node.getPrim_col(); a != null; a = a.getSeg_col()){
-            NodeGraf<ZonaRecarrega, Double> node = a.getNode_fil();
-            switch (nodes.get(node.getInfo().getId()).getEstat()){
-                case BLANC:
-                    if(a.getInfo() <= autonomia){
-                        nodes.get(node.getInfo().getId()).accesible = true;
-                    }
-                    profundidat0(nodes, node.getInfo().getId(), autonomia);
-                    break;
-            }
-        }
+
+//        for(Aresta<ZonaRecarrega, Double> a = nodes.get(id).node.getPrim_fil(); a != null; a = a.getSeg_fil()){
+//            NodeGraf<ZonaRecarrega, Double> node = a.getNode_col();
+//            switch (nodes.get(node.getInfo().getId()).getEstat()){
+//                case BLANC:
+//                    if(a.getInfo() <= autonomia){
+//                        nodes.get(node.getInfo().getId()).accesible = true;
+//                    }
+//                    profundidat0(nodes, node.getInfo().getId(), autonomia);
+//                    break;
+//            }
+//        }
+//        for(Aresta<ZonaRecarrega, Double> a = nodes.get(id).node.getPrim_col(); a != null; a = a.getSeg_col()){
+//            NodeGraf<ZonaRecarrega, Double> node = a.getNode_fil();
+//            switch (nodes.get(node.getInfo().getId()).getEstat()){
+//                case BLANC:
+//                    if(a.getInfo() <= autonomia){
+//                        nodes.get(node.getInfo().getId()).accesible = true;
+//                    }
+//                    profundidat0(nodes, node.getInfo().getId(), autonomia);
+//                    break;
+//            }
+//        }
         nodes.get(id).setNegre();
     }
 

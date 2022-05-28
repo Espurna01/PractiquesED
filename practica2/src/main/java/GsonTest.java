@@ -6,6 +6,7 @@ import main.java.DataStructure.ComplementaryStructures.Aresta;
 import main.java.DataStructure.ComplementaryStructures.MinHeap;
 import main.java.DataStructure.MainStructures.GrafPR;
 import main.java.DataStructure.ComplementaryStructures.NodeGraf;
+import main.java.Excepcions.CamiImpossible;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -70,11 +71,11 @@ public class GsonTest {
 
 //        System.out.println(grafPR.camiOptim(3887523, 7088600, 20));
 //
-//        System.out.println(grafPR.valorAresta(grafPR.getNode(3887523), grafPR.getNode(13382168)));
+        System.out.println(grafPR.adjacents(grafPR.getNode(33852299)));
 //        System.out.println(grafPR.valorAresta(grafPR.getNode(13382168), grafPR.getNode(7088600)));
 
 
-        System.out.println(grafPR.zonesDistMaxNoGarantida(3887523, 20));
+//        System.out.println(grafPR.zonesDistMaxNoGarantida(3887523, 20));
 
 
     }
