@@ -89,4 +89,33 @@ public class MinHeap<T extends Comparable<T>> {
         }
         return sb + "]";
     }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean belongs(T elem){
+        for(T candidate : elems){
+            if(candidate != null && elem.equals(candidate))
+                return true;
+        }
+        return false;
+    }
+
+    public T get(T elem) {
+        for(T candidate : elems){
+            if(candidate != null && elem.equals(candidate))
+                return candidate;
+        }
+        return null;
+    }
+
+    public void set(T elem) {
+        for(int i = 0; i < elems.length; i++){
+            if(elems[i].equals(elem)){
+                elems[i] = elem;
+                return;
+            }
+        }
+    }
 }

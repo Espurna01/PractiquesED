@@ -1,9 +1,11 @@
 package main.java.DataStructure.ComplementaryStructures;
 
-public class Aresta<V, E> {
+import main.java.ID;
+
+public class Aresta<V extends ID<Integer>, E> {
     protected Aresta<V, E> seg_fil;
     protected Aresta<V, E> seg_col;
-    protected NodeGraf<V, E> node_fil;
+    protected NodeGraf<V , E> node_fil;
     protected NodeGraf<V, E> node_col;
 
     protected E info;

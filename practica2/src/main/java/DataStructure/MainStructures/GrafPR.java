@@ -4,17 +4,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import main.java.CamiImpossible;
-import main.java.DataStructure.ComplementaryStructures.Aresta;
-import main.java.DataStructure.ComplementaryStructures.NodeGraf;
-import main.java.DataStructure.ComplementaryStructures.TADGraf;
-import main.java.ZonaRecarrega;
+import main.java.DataStructure.ComplementaryStructures.*;
+import main.java.Excepcions.CamiImpossible;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<ZonaRecarrega, Double>> {
 
@@ -36,7 +31,7 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
                 int id_estacio = jo.get("id_estacio").getAsInt();
                 if(!hmpc.containsKey(id_estacio)){
                     ZonaRecarrega zr = new ZonaRecarrega(id_estacio, jo.get("nom").getAsString(), jo.get("latitud").getAsDouble(), jo.get("longitud").getAsDouble());
-                    hmpc.put(zr.getId_estacio(), new NodeGraf<>(zr));
+                    hmpc.put(zr.getId(), new NodeGraf<>(zr));
                 }
                 int id = jo.get("id").getAsInt();
                 float potencia;
@@ -139,6 +134,7 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
     @Override
     public Aresta<ZonaRecarrega, Double> valorAresta(NodeGraf<ZonaRecarrega, Double> v1, NodeGraf<ZonaRecarrega, Double> v2) {
         boolean aresta = false;
+
         Aresta<ZonaRecarrega, Double> a;
         if(v1.getInfo().compareTo(v2.getInfo()) < 0){
             a = v1.getPrim_fil();
@@ -215,10 +211,100 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
         return hmpc.values();
     }
 
-    public ArrayList<NodeGraf<ZonaRecarrega, Double>> camiOptim(int id_origen, int id_desti, int autonomia) throws CamiImpossible {
+    public ArrayList<NodeEstrella<ZonaRecarrega, Double>> camiOptim(int id_origen, int id_desti, int autonomia) throws CamiImpossible {
         //L'algorisme aplicat es A*(a estrella)
+        double autonomiaRestant = autonomia;
+        MinHeap<NodeEstrella<ZonaRecarrega, Double>> openNodes = new MinHeap<>();
+        HashMap<Integer, NodeEstrella<ZonaRecarrega, Double>> closedNodes = new HashMap<>();
+        NodeEstrella<ZonaRecarrega, Double> current = new NodeEstrella<>(null, 0,0);
+        openNodes.add(new NodeEstrella<>(getNode(id_origen), distancia(getNode(id_origen), getNode(id_desti)), 0));
+        while(openNodes.size() > 0){
+            current = openNodes.pull();
+            if(current.getActual() == getNode(id_desti)){
+                break;
+            }
+            autonomiaRestant = autonomiaRestant - current.getCost();
+            for(NodeGraf<ZonaRecarrega, Double> n : adjacents(current.getActual())){
+                NodeEstrella<ZonaRecarrega, Double> successor = new NodeEstrella<>(n, distancia(getNode(id_origen), getNode(id_desti)), distancia(current.getActual(), n));
+                /* No puc arribar */
+                if(successor.getCost() > autonomia && autonomia != -1)
+                    continue;
+                if(autonomia >= successor.getCost() && autonomiaRestant < successor.getCost()){
+                    successor.setRecarregar(true);
+                    autonomiaRestant = autonomia;
+                }
+                successor.setAnterior(current);
+                successor.sumCostPreviousNodes();
+                if(openNodes.belongs(successor) && successor.getCost() < openNodes.get(successor).getCost()){
+                    openNodes.set(successor);
+                }
+                if(closedNodes.containsKey(n.getInfo().getId()) && successor.getCost() < closedNodes.get(n.getInfo().getId()).getCost()) {
+                    closedNodes.remove(n.getInfo().getId(), successor);
+                }
+                if(!openNodes.belongs(successor) && !closedNodes.containsKey(n.getInfo().getId())){
+                    openNodes.add(successor);
+                }
+            }
+            closedNodes.put(current.getActual().getInfo().getId(), current);
+        }
+        if(current.getActual().getInfo().getId() != id_desti)
+            throw new CamiImpossible(id_origen, id_desti, autonomia);
 
-        return null;
+        Deque<NodeEstrella<ZonaRecarrega, Double>> cua = new ArrayDeque<>();
+        for(;current != null; current = current.getAnterior()){
+            cua.addFirst(current);
+        }
+
+        return new ArrayList<>(cua);
+    }
+
+    public ArrayList<NodeGraf<ZonaRecarrega, Double>> zonesDistMaxNoGarantida(int id_origen, int autonomia){
+        //Recorregut
+
+        HashMap<Integer, DistanciaNodes> nodes = new HashMap<>();
+
+        for(NodeGraf<ZonaRecarrega, Double> nodeGraf : hmpc.values()){
+            nodes.put(nodeGraf.getInfo().getId(),new DistanciaNodes(nodeGraf));
+        }
+
+        profundidat0(nodes, id_origen, autonomia);
+
+        ArrayList<NodeGraf<ZonaRecarrega, Double>> zonesNoAccesibles = new ArrayList<>();
+
+        for(DistanciaNodes dn : nodes.values()){
+            if(!dn.accesible){
+                zonesNoAccesibles.add(dn.node);
+            }
+        }
+
+        return zonesNoAccesibles;
+    }
+
+    private void profundidat0(HashMap<Integer, DistanciaNodes> nodes, int id, int autonomia){
+        nodes.get(id).setGris();
+        for(Aresta<ZonaRecarrega, Double> a = nodes.get(id).node.getPrim_fil(); a != null; a = a.getSeg_fil()){
+            NodeGraf<ZonaRecarrega, Double> node = a.getNode_col();
+            switch (nodes.get(node.getInfo().getId()).getEstat()){
+                case BLANC:
+                    if(a.getInfo() <= autonomia){
+                        nodes.get(node.getInfo().getId()).accesible = true;
+                    }
+                    profundidat0(nodes, node.getInfo().getId(), autonomia);
+                    break;
+            }
+        }
+        for(Aresta<ZonaRecarrega, Double> a = nodes.get(id).node.getPrim_col(); a != null; a = a.getSeg_col()){
+            NodeGraf<ZonaRecarrega, Double> node = a.getNode_fil();
+            switch (nodes.get(node.getInfo().getId()).getEstat()){
+                case BLANC:
+                    if(a.getInfo() <= autonomia){
+                        nodes.get(node.getInfo().getId()).accesible = true;
+                    }
+                    profundidat0(nodes, node.getInfo().getId(), autonomia);
+                    break;
+            }
+        }
+        nodes.get(id).setNegre();
     }
 
 }

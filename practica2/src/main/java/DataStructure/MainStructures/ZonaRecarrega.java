@@ -1,6 +1,8 @@
 package main.java.DataStructure.MainStructures;
 
+import main.java.DataStructure.ComplementaryStructures.NodeEstrella;
 import main.java.ID;
+import org.w3c.dom.Node;
 
 import java.util.ArrayList;
 
@@ -46,7 +48,7 @@ public class ZonaRecarrega implements Comparable<ZonaRecarrega>, ID<Integer> {
     }
 
     public String toString(){
-        return id_estacio + "";
+        return id_estacio + ": " + nom;
     }
 
     public String getNom() {
@@ -62,4 +64,12 @@ public class ZonaRecarrega implements Comparable<ZonaRecarrega>, ID<Integer> {
     public Integer getId() {
         return id_estacio;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return id_estacio == ((ZonaRecarrega) obj).getId();
+    }
+
+
 }

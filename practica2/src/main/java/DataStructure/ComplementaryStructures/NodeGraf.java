@@ -1,6 +1,8 @@
 package main.java.DataStructure.ComplementaryStructures;
 
-public class NodeGraf<V, E>  {
+import main.java.ID;
+
+public class NodeGraf<V extends ID<Integer>, E>  {
     private V info;
     private Aresta<V, E> prim_fil;
     private Aresta<V, E> prim_col;
@@ -34,4 +36,10 @@ public class NodeGraf<V, E>  {
     public String toString(){
         return info.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return info.equals(((NodeGraf<?, ?>)obj).getInfo());
+    }
+
 }
