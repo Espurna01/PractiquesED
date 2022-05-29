@@ -1,7 +1,5 @@
 package main.java.DataStructure.ComplementaryStructures;
 
-import main.java.ID;
-
 public class NodeGraf<V extends ID<Integer>, E>  {
     private V info;
     private Aresta<V, E> prim_fil;

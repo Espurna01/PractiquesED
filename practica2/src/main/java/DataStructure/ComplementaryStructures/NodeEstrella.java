@@ -1,7 +1,5 @@
 package main.java.DataStructure.ComplementaryStructures;
 
-import main.java.ID;
-
 public class NodeEstrella<V extends ID<Integer>, E> implements Comparable<NodeEstrella<V, E>>{
     private NodeGraf<V, E> actual;
     private NodeEstrella<V, E> anterior;

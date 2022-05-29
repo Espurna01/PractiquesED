@@ -1,7 +1,5 @@
 package main.java.DataStructure.ComplementaryStructures;
 
-import main.java.ID;
-
 public class Aresta<V extends ID<Integer>, E> {
     protected Aresta<V, E> seg_fil;
     protected Aresta<V, E> seg_col;

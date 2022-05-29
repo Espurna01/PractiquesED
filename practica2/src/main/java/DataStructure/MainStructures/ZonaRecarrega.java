@@ -1,15 +1,13 @@
 package main.java.DataStructure.MainStructures;
 
-import main.java.DataStructure.ComplementaryStructures.NodeEstrella;
-import main.java.ID;
-import org.w3c.dom.Node;
+import main.java.DataStructure.ComplementaryStructures.ID;
 
 import java.util.ArrayList;
 
 public class ZonaRecarrega implements Comparable<ZonaRecarrega>, ID<Integer> {
-    private int id_estacio;
-    private String nom;
-    private ArrayList<Endoll> endolls;
+    private final int id_estacio;
+    private final String nom;
+    private final ArrayList<Endoll> endolls;
     private int maxEndoll;
     private final double latitud;
     private final double longitud;

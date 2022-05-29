@@ -13,7 +13,7 @@ import java.util.*;
 
 public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<ZonaRecarrega, Double>> {
 
-    private HashMap<Integer, NodeGraf<ZonaRecarrega, Double>> hmpc;
+    private final HashMap<Integer, NodeGraf<ZonaRecarrega, Double>> hmpc;
 
     public GrafPR(){
         hmpc = new HashMap<>();
@@ -25,7 +25,6 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
     public void CrearGraf() {
         try{
             JsonArray ja = JsonParser.parseReader(new FileReader("icaen.json")).getAsJsonArray();
-            int totalUnidos = 0;
             for(JsonElement je : ja){
                 JsonObject jo = je.getAsJsonObject();
                 int id_estacio = jo.get("id_estacio").getAsInt();
@@ -64,7 +63,6 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
                 }
             }
             if(azr.get(i).getPrim_col() == null && azr.get(i).getPrim_fil() == null){
-                System.out.println(azr.get(i));
                 afegirAresta(azr.get(i), minNode, new Aresta<>(minDist));
             }
         }
@@ -140,10 +138,14 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
         if(v1.getInfo().compareTo(v2.getInfo()) < 0){
             for(a = v1.getPrim_fil();!aresta && a != null; a = a.getSeg_fil()){
                 aresta = a.getNode_col() == v2;
+                if(aresta)
+                    break;
             }
         }else{
             for(a = v1.getPrim_col();!aresta && a != null; a = a.getSeg_col()){
                 aresta = a.getNode_fil() == v2;
+                if(aresta)
+                    break;
             }
         }
 
@@ -176,7 +178,7 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
         return sb.toString();
     }
 
-    private double distancia(NodeGraf<ZonaRecarrega, Double> n1, NodeGraf<ZonaRecarrega, Double> n2){
+    public double distancia(NodeGraf<ZonaRecarrega, Double> n1, NodeGraf<ZonaRecarrega, Double> n2){
         // The math module contains a function
         // named toRadians which converts from
         // degrees to radians.
@@ -224,7 +226,7 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
             }
             autonomiaRestant = autonomiaRestant - current.getCost();
             for(NodeGraf<ZonaRecarrega, Double> n : adjacents(current.getActual())){
-                NodeEstrella<ZonaRecarrega, Double> successor = new NodeEstrella<>(n, distancia(getNode(id_origen), getNode(id_desti)), distancia(current.getActual(), n));
+                NodeEstrella<ZonaRecarrega, Double> successor = new NodeEstrella<>(n, distancia(getNode(id_origen), getNode(id_desti)), valorAresta(n, current.getActual()).getInfo());
                 /* No puc arribar */
                 if(successor.getCost() > autonomia && autonomia != -1)
                     continue;
@@ -289,31 +291,14 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
                     }
                     profundidat0(nodes, node.getInfo().getId(), autonomia);
                     break;
+                case GRIS:
+                case NEGRE:
+                    if(valorAresta(node, nodes.get(id).node).getInfo() <= autonomia){
+                        nodes.get(node.getInfo().getId()).accesible = true;
+                    }
+                    break;
             }
         }
-
-//        for(Aresta<ZonaRecarrega, Double> a = nodes.get(id).node.getPrim_fil(); a != null; a = a.getSeg_fil()){
-//            NodeGraf<ZonaRecarrega, Double> node = a.getNode_col();
-//            switch (nodes.get(node.getInfo().getId()).getEstat()){
-//                case BLANC:
-//                    if(a.getInfo() <= autonomia){
-//                        nodes.get(node.getInfo().getId()).accesible = true;
-//                    }
-//                    profundidat0(nodes, node.getInfo().getId(), autonomia);
-//                    break;
-//            }
-//        }
-//        for(Aresta<ZonaRecarrega, Double> a = nodes.get(id).node.getPrim_col(); a != null; a = a.getSeg_col()){
-//            NodeGraf<ZonaRecarrega, Double> node = a.getNode_fil();
-//            switch (nodes.get(node.getInfo().getId()).getEstat()){
-//                case BLANC:
-//                    if(a.getInfo() <= autonomia){
-//                        nodes.get(node.getInfo().getId()).accesible = true;
-//                    }
-//                    profundidat0(nodes, node.getInfo().getId(), autonomia);
-//                    break;
-//            }
-//        }
         nodes.get(id).setNegre();
     }
 
