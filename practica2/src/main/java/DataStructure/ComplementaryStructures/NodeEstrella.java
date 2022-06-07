@@ -4,7 +4,6 @@ public class NodeEstrella<V extends ID<Integer>, E> implements Comparable<NodeEs
     private NodeGraf<V, E> actual;
     private NodeEstrella<V, E> anterior;
     private boolean recarregar;
-    boolean visitat;
     double heuristic;
     double cost;
 
@@ -12,7 +11,6 @@ public class NodeEstrella<V extends ID<Integer>, E> implements Comparable<NodeEs
         recarregar = false;
         anterior = null;
         this.actual = actual;
-        visitat = false;
         this.heuristic = heuristic;
         this.cost = cost;
     }

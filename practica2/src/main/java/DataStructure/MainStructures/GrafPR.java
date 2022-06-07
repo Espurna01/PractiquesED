@@ -136,13 +136,13 @@ public class GrafPR implements TADGraf<NodeGraf<ZonaRecarrega, Double>, Aresta<Z
 
         Aresta<ZonaRecarrega, Double> a;
         if(v1.getInfo().compareTo(v2.getInfo()) < 0){
-            for(a = v1.getPrim_fil();!aresta && a != null; a = a.getSeg_fil()){
+            for(a = v1.getPrim_fil(); a != null; a = a.getSeg_fil()){
                 aresta = a.getNode_col() == v2;
                 if(aresta)
                     break;
             }
         }else{
-            for(a = v1.getPrim_col();!aresta && a != null; a = a.getSeg_col()){
+            for(a = v1.getPrim_col(); a != null; a = a.getSeg_col()){
                 aresta = a.getNode_fil() == v2;
                 if(aresta)
                     break;
