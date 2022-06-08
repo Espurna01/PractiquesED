@@ -2,6 +2,7 @@ package fase1.Aplicacio;
 
 import fase1.EstructuraDades.CiutadaPeu;
 import fase1.EstructuraDades.DLL;
+import fase1.EstructuraDades.DLLOrdenada;
 import fase1.EstructuraDades.TADCiutada;
 import fase1.Excepcions.elementNoExisteix;
 import fase1.Excepcions.operacioImpossible;
@@ -22,8 +23,19 @@ public class App {
 
         CiutadaPeu[] lcp = new CiutadaPeu[]{a, b, c, d, e, f};
 
+        DLLOrdenada<Integer> dllOrd = new DLLOrdenada<>(true);
+        dllOrd.inserir(1);
+        dllOrd.inserir(3);
+        dllOrd.inserir(5);
+        dllOrd.inserir(4);
+        dllOrd.inserir(0);
+        dllOrd.inserir(2);
+
+
         reiniciarDll(dll, lcp);
         System.out.println("Elements a la DLL: " + dll);
+
+        System.out.println("Elements a la DLLOrdenada: " + dllOrd);
 
         /**
          * Espai per fer les comprovacions que cregui necessàries. Per fer el joc de proves he fet servir JUnit testing.

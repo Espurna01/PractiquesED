@@ -2,10 +2,13 @@ package fase1.JUnit;
 
 import fase1.EstructuraDades.CiutadaPeu;
 import fase1.EstructuraDades.DLL;
+import fase1.EstructuraDades.DLLOrdenada;
 import fase1.EstructuraDades.TADCiutada;
 import fase1.Excepcions.elementNoExisteix;
 import fase1.Excepcions.operacioImpossible;
 import org.junit.jupiter.api.Test;
+
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 class DLLTest {
@@ -190,6 +193,30 @@ class DLLTest {
         }
     }
 
+    /**
+     * DLL ordenada
+     */
+    @Test
+    void ordenat() throws operacioImpossible {
+        /* llista final esperada: {a, b, c, d, e, f} */
+        DLLOrdenada<TADCiutada> dllCreixent = new DLLOrdenada<>(true);
+        /* llista final esperada: {f, e, d, c, b, a} */
+        DLLOrdenada<TADCiutada> dllDecreixent = new DLLOrdenada<>(false);
+
+        int[] ordreAfegir = {3, 0, 5, 2, 1, 4};
+        for (int i : ordreAfegir) {
+            dllCreixent.inserir(lcp[i]);
+            dllDecreixent.inserir(lcp[i]);
+        }
+
+        for(int i = 0; i < 6; i++){
+            assertEquals(dllCreixent.obtenir(i + 1), lcp[i], "L'element trobat a la llista creixent no es el correcte; esperat: " + lcp[i] + ", trobat: " + dllCreixent.obtenir(i + 1) + ".");
+            assertEquals(dllDecreixent.obtenir(i + 1), lcp[5 - i], "L'element trobat a la llista creixent no es el correcte; esperat: " + lcp[5 - i] + ", trobat: " + dllDecreixent.obtenir(i + 1) + ".");
+        }
+
+        assertThrows(operacioImpossible.class, ()->dllCreixent.inserir(2, lcp[5]), "No es deuria poder afegir un element a una determinada posicio, l'ordre no es mantendria.");
+
+    }
     private void reiniciarDLL(){
         dllc = new DLL<>();
         dllc.inserir(a);

@@ -9,10 +9,10 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
 
     private DLL<T> fwd;
     private DLL<T> bkw;
-    private T data;
+    protected T data;
 
     public DLL(){
-        this(null);
+        crear();
     }
 
     public DLL(T data){
@@ -86,11 +86,11 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
         }
     }
 
-    private void setBkw(DLL<T> newNode) {
+    protected void setBkw(DLL<T> newNode) {
         bkw = newNode;
     }
 
-    private void setFwd(DLL<T> fwd) {
+    protected void setFwd(DLL<T> fwd) {
         this.fwd = fwd;
     }
 
@@ -195,9 +195,9 @@ public class DLL<T extends Comparable<T>> implements TADLlista<T>, Iterable<T> {
     }
 
     public String toString(){
-        String r = "[{null";
+        StringBuilder r = new StringBuilder("[{null");
         for(T data : this){
-            r += "} ⇄ {" + data;
+            r.append("} ⇄ {").append(data);
         }
         return r + "} ⇄ {null}]";
     }
