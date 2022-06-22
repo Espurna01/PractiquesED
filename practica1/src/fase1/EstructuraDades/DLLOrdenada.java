@@ -4,14 +4,14 @@ import fase1.Excepcions.operacioImpossible;
 
 public class DLLOrdenada<T extends Comparable<T>> extends DLL<T> {
 
-    private boolean menorMajor;                 //false: <, true: >
+    private boolean menorMajor;                 //false: >, true: <
 
     public DLLOrdenada(boolean menorMajor){
         super();
         this.menorMajor = menorMajor;
     }
 
-
+    @Override
     public void inserir(T data){
         if(data != null){
             if (this.data != null) {
